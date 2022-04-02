@@ -28,7 +28,7 @@ public class CategoryController {
     @RequestMapping("/getListCategory")
     public String listCategory(Model model) {
         List<Category> listCategory = categoryRepo.findAll();
-        model.addAttribute("listProducts", listCategory);
+        model.addAttribute("listCategorys", listCategory);
 
         return "listCategory";
     }

@@ -48,7 +48,7 @@ public class UserController {
     @RequestMapping("/getListUser")
     public String listUser(Model model) {
         List<User> listUser = userService.listAll();
-        model.addAttribute("listProducts", listUser);
+        model.addAttribute("listUsers", listUser);
 
         return "listUser";
     }
