@@ -104,6 +104,28 @@ public class CategoryDaoImpl implements CategoryDao{
 
     @Override
     public Boolean create(Category category) {
-        return null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        String sql = "INSERT INTO category (category_id, category_title) VALUE (?,?)";
+        boolean result = false;
+
+        try {
+            conn = dataSource.getConnection();
+            ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, category.getCategoryId());
+            ps.setString(2, category.getCategoryTitle());
+
+            int e = ps.executeUpdate();
+            if (e > 0) result = true;
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            closeConn(conn);
+            closePs(ps, null);
+        }
+
+        return result;
     }
 }
