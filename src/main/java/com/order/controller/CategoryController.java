@@ -1,36 +1,53 @@
 package com.order.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.order.dao.CategoryDao;
 import com.order.entities.Category;
 import com.order.entities.User;
 import com.order.repositores.CategoryRepo;
+import com.order.response.Response;
+import com.order.server.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
+@RequestMapping(value = "/category", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CategoryController {
 
     @Autowired
     private CategoryRepo categoryRepo;
 
-    @RequestMapping(value = "/saveCategory", method = RequestMethod.POST)
-    public String saveCategory(@ModelAttribute("category") Category category) {
-        categoryRepo.save(category);
-        return "redirect:/";
+    @Autowired
+    private CategoryDao categoryDao;
+
+
+    @GetMapping
+    public ResponseEntity findAll()  {
+        int code;
+        Gson gson = new GsonBuilder().create();
+            List<Category> rs = categoryRepo.findAll();
+            String st = gson.toJson(rs, List.class);
+            return new ResponseEntity<>(st, HttpStatus.OK);
+
     }
 
 
-    @RequestMapping("/getListCategory")
-    public String listCategory(Model model) {
-        List<Category> listCategory = categoryRepo.findAll();
-        model.addAttribute("listCategorys", listCategory);
+    @GetMapping(value = "/id/{category_id}")
+    public ResponseEntity findById(@PathVariable("category_id") int id){
+        Gson gson = new GsonBuilder().create();
+        Category ls = categoryDao.findById(id);
+        String s = gson.toJson(ls, Category.class);
+        return new ResponseEntity<>(s, HttpStatus.OK);
 
-        return "listCategory";
     }
+
 
 }
