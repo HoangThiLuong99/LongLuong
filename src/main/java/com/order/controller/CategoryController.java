@@ -49,16 +49,23 @@ public class CategoryController {
 
     }
 
+    @GetMapping(value = "/name/{category_title}")
+    public ResponseEntity findByName(@PathVariable("category_title") String name) {
+        Gson gson = new GsonBuilder().create();
+        Category ls = categoryDao.findByName(name);
+        String s = gson.toJson(ls, Category.class);
+        return new ResponseEntity<>(s, HttpStatus.OK);
+
+    }
+
     @PostMapping(value = "/create")
     public ResponseEntity<String> create(@RequestBody Category category) {
         int code;
         Gson gson = new GsonBuilder().create();
-
         Boolean rs = categoryDao.create(category);
         String st = gson.toJson(rs, Boolean.class);
         return new ResponseEntity<>(st, HttpStatus.OK);
 
     }
-
 
 }

@@ -12,7 +12,7 @@ public class Product {
     @Column(name = "product_name")
     public String productName;
     @Column(name = "price")
-    public long price;
+    public int price;
     @Column(name = "so_luong")
     public int soluong;
     @Column(name = "category_id")
@@ -21,7 +21,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(int productId, String productName, long price, int soluong, int categoryId) {
+    public Product(int productId, String productName, int price, int soluong, int categoryId) {
         this.productId = productId;
         this.productName = productName;
         this.price = price;
@@ -45,11 +45,11 @@ public class Product {
         this.productName = productName;
     }
 
-    public long getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
