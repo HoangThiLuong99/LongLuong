@@ -55,5 +55,14 @@ public class ProductController {
 
     }
 
-//
+    @PostMapping(value = "/create")
+    public ResponseEntity<String> create(@RequestBody Product product) {
+
+        Gson gson = new GsonBuilder().create();
+        Boolean rs = productDao.create(product);
+        String st = gson.toJson(rs, Boolean.class);
+        return new ResponseEntity<>(st, HttpStatus.OK);
+
+    }
+
 }

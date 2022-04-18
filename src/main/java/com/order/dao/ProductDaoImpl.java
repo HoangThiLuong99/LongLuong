@@ -114,18 +114,17 @@ public class ProductDaoImpl implements ProductDao{
     public Boolean create(Product product) {
         Connection conn = null;
         PreparedStatement ps = null;
-        String sql = "INSERT INTO product (product_id, product_name,price, so_luong,category_id) VALUE (?,?,?,?,?)";
+        String sql = "INSERT INTO product (product_name,price, so_luong,category_id) VALUE (?,?,?,?)";
         boolean result = false;
 
         try {
             conn = dataSource.getConnection();
             ps = conn.prepareStatement(sql);
 
-            ps.setInt(1, product.getProductId());
-            ps.setString(2, product.getProductName());
-            ps.setInt(3,product.getPrice());
-            ps.setInt(4,product.getSoluong());
-            ps.setInt(5,product.getCategoryId());
+            ps.setString(1, product.getProductName());
+            ps.setInt(2,product.getPrice());
+            ps.setInt(3,product.getSoluong());
+            ps.setInt(4,product.getCategoryId());
 
             int e = ps.executeUpdate();
             if (e > 0) result = true;
