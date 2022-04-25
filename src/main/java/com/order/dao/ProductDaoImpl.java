@@ -65,7 +65,7 @@ public class ProductDaoImpl implements ProductDao{
                 c.setProductId(productId);
                 c.setProductName(name);
                 c.setPrice(price);
-                c.setSoluong(soLuong);
+                c.setNumber(soLuong);
                 c.setCategoryId(categoryId);
             }
         } catch (Exception ex) {
@@ -83,7 +83,7 @@ public class ProductDaoImpl implements ProductDao{
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM category WHERE category_id = ?";
+        String sql = "SELECT * FROM product WHERE category_id = ?";
         List<Product> lst = new ArrayList<>();
         try {
             conn = dataSource.getConnection();
@@ -96,9 +96,9 @@ public class ProductDaoImpl implements ProductDao{
                 int productId = rs.getInt("product_id");
                 String name = rs.getString("product_name");
                 int price  = rs.getInt("price");
-                int soLuong = rs.getInt("so_luong");
+                int number = rs.getInt("number");
                 int categoryId = rs.getInt("category_id");
-                lst.add(new Product(productId,name,price,soLuong,categoryId));
+                lst.add(new Product(productId,name,price,number,categoryId));
 
             }
         } catch (Exception ex) {
@@ -114,7 +114,7 @@ public class ProductDaoImpl implements ProductDao{
     public Boolean create(Product product) {
         Connection conn = null;
         PreparedStatement ps = null;
-        String sql = "INSERT INTO product (product_name,price, so_luong,category_id) VALUE (?,?,?,?)";
+        String sql = "INSERT INTO product (product_name,price, number,category_id) VALUE (?,?,?,?)";
         boolean result = false;
 
         try {
@@ -123,7 +123,7 @@ public class ProductDaoImpl implements ProductDao{
 
             ps.setString(1, product.getProductName());
             ps.setInt(2,product.getPrice());
-            ps.setInt(3,product.getSoluong());
+            ps.setInt(3,product.getNumber());
             ps.setInt(4,product.getCategoryId());
 
             int e = ps.executeUpdate();

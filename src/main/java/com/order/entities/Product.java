@@ -13,19 +13,19 @@ public class Product {
     public String productName;
     @Column(name = "price")
     public int price;
-    @Column(name = "so_luong")
-    public int soluong;
+    @Column(name = "number")
+    public int number;
     @Column(name = "category_id")
     public int categoryId;
 
     public Product() {
     }
 
-    public Product(int productId, String productName, int price, int soluong, int categoryId) {
+    public Product(int productId, String productName, int price, int number, int categoryId) {
         this.productId = productId;
         this.productName = productName;
         this.price = price;
-        this.soluong = soluong;
+        this.number = number;
         this.categoryId = categoryId;
     }
 
@@ -53,12 +53,12 @@ public class Product {
         this.price = price;
     }
 
-    public int getSoluong() {
-        return soluong;
+    public int getNumber() {
+        return number;
     }
 
-    public void setSoluong(int soluong) {
-        this.soluong = soluong;
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public int getCategoryId() {
@@ -75,7 +75,7 @@ public class Product {
                 "productId=" + productId +
                 ", productName='" + productName + '\'' +
                 ", price=" + price +
-                ", soluong=" + soluong +
+                ", number=" + number +
                 ", categoryId=" + categoryId +
                 '}';
     }
